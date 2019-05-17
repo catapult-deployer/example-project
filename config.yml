@@ -1,0 +1,30 @@
+deploy:
+  user: deployer
+  deploy_path: /var/www
+  keep_releases: 5
+  ssh:
+    user: deployer
+    key_file: ./keys/ssh-user.key
+  git:
+    key_file: ./keys/repository.key
+server:
+  token: SomeTokenToAllowHTTPRequestForCatapultServer
+  workers: 10
+  host: "0.0.0.0"
+  port: 5000
+notifications:
+  telegram:
+    token: tokenOfTelegramBot
+    messages:
+      success: 'Branch "{{ branch }}" of service "{{ service }}" successfully deployed for place "{{ place }}" with {{ time }}s'
+      fail: 'Error with deploy branch "{{ branch }}" of service "{{ service }}" for place "{{ place }}"'
+  pushover:
+    token: tokeOfPushoverApplication
+    messages:
+      success: 'Branch "{{ branch }}" of service "{{ service }}" successfully deployed for place "{{ place }}" with {{ time }}s'
+      fail: 'Error with deploy branch "{{ branch }}" of service "{{ service }}" for place "{{ place }}"'
+  slack:
+    token: tokenOfSlackApplication
+    messages:
+      success: 'Branch "{{ branch }}" of service "{{ service }}" successfully deployed for place "{{ place }}" with {{ time }}s :tada:'
+      fail: 'Error with deploy branch "{{ branch }}" of service "{{ service }}" for place "{{ place }}"'

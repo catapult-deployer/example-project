@@ -1,0 +1,55 @@
+repo: git@your-git-host.com:backend/big-backend-on-laravel.git
+places:
+  production:
+    cloud:
+      web:
+        - host: web-01.your-production-host.com
+          parameters:
+            db_host: localhost
+        - host: web-02.your-production-host.com
+          parameters:
+            db_host: localhost
+      bot:
+        - host: bot-01.your-production-host.com
+          parameters:
+            db_host: db-01.your-production-host.com
+        - host: bot-02.your-production-host.com
+          parameters:
+            db_host: db-01.your-production-host.com
+      maintain:
+        - host: maintain.your-production-host.com
+          parameters:
+            db_host: db-01.your-production-host.com
+    modules:
+      supervisor: ~
+      crontab: ~
+      nginx:
+        template: big-backend-on-laravel/nginx.j2
+    recipes:
+      - laravel
+    notifications:
+      slack:
+        channel: nameOfSlackChannel
+      pushover:
+        clients:
+          - someTokenOfPushoverClientId
+  stage:
+    cluster:
+      - {host: stage.your-stage-host.com}
+    modules:
+      supervisor: ~
+      crontab: ~
+      nginx:
+        template: big-backend-on-laravel/stage_nginx.j2
+    recipes:
+      - laravel
+    notifications:
+      pushover:
+        clients:
+          - someTokenOfPushoverClientId
+parameters:
+  service_name: big-backend-on-laravel
+  some_parameter: "You can use this parameter in .env or nginx template"
+linked:
+  - .env
+  - storage

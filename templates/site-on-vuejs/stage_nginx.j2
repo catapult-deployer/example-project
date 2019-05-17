@@ -1,0 +1,20 @@
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name your-stage-host.com;
+
+    access_log /var/log/nginx/{{ storage("release.service") }}_access.log;
+    error_log /var/log/nginx/{{ storage("release.service") }}_error.log;
+
+    root {{ root }};
+    index {{ index_files }};
+
+    location /api/ {
+        proxy_pass http://api.your-stage-host.com;
+    }
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}

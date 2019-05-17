@@ -1,0 +1,23 @@
+repo: git@your-git-host.com:backend/big-backend-on-laravel.git
+places:
+  production:
+    cluster:
+      - {host: your-production-host.com}
+    modules:
+      supervisor: ~
+      crontab: ~
+      nginx:
+        template: small-backend-on-laravel/nginx.j2
+    recipes:
+      - laravel
+    notifications:
+      slack:
+        channel: nameOfSlackChannel
+      pushover:
+        clients:
+          - someTokenOfPushoverClientId
+parameters:
+  some_parameter: "You can use this parameter in .env or nginx template"
+linked:
+  - .env
+  - storage

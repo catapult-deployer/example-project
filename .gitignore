@@ -1,0 +1,12 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Editors
+target/
+.idea/
+*.sublime*
+.DS_Store
+
+server.log
+releases/

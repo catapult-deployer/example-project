@@ -1,0 +1,31 @@
+repo: git@your-git-host.com:frontend/site-on-vuejs-on-vuejs.git
+places:
+  production:
+    cluster:
+      - {host: you-site-host.com}
+    modules:
+      nginx:
+        template: site-on-vuejs-on-vuejs/nginx.j2
+    recipes:
+      - vuejs
+    notifications:
+      slack:
+        channel: nameOfSlackChannel
+      pushover:
+        clients:
+          - someTokenOfPushoverClientId
+  stage:
+    cluster:
+      - {host: your-stage-host.com}
+    modules:
+      nginx:
+        template: site-on-vuejs-on-vuejs/stage_nginx.j2
+    recipes:
+      - vuejs
+    notifications:
+      pushover:
+        clients:
+          - someTokenOfPushoverClientId
+parameters:
+  service_name: site
+  some_parameter: "You can use this parameter in nginx template"
